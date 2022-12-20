@@ -49,9 +49,9 @@ def post_message_service(dog):
                 f"서비스 : {dog.service}\n"
                 f"전화번호 뒷자리 : {dog.backPhoneNumber}\n"
                 f"\n"
-                f"■ 아래 준비물 및 주의사항 꼭 확인 부탁드립니다. 💕\n"
+                f"■ 아래 준비물 및 주의사항 꼭 확인 부탁드립니다.\n"
                 f"\n"
-                f"■  『최종 확인』 버튼을 눌러주세요‼️",
+                f"■  『최종 확인』 버튼을 눌러주세요",
             "mobile": f"{dog.phoneNumber}",  # 전송받는 전화번호
             "title": "최종 확인을 눌러주세요",  # 타이틀
             "template": "10005",  # 템플릿 코드
@@ -73,9 +73,9 @@ def post_message_service(dog):
                 f"서비스 : {dog.service}\n"
                 f"전화번호 뒷자리 : {dog.backPhoneNumber}\n"
                 f"\n"
-                f"■ 아래 준비물 및 주의사항 꼭 확인 부탁드립니다. 💕\n"
+                f"■ 아래 준비물 및 주의사항 꼭 확인 부탁드립니다.\n"
                 f"\n"
-                f"■ 『최종 확인』 버튼을 눌러주세요‼️",
+                f"■ 『최종 확인』 버튼을 눌러주세요",
             "mobile": f"{dog.phoneNumber}",  # 전송받는 전화번호
             "title": "최종 확인을 눌러주세요",  # 타이틀
             "template": "10007",  # 템플릿 코드
@@ -99,9 +99,9 @@ def post_message_service(dog):
                 f"서비스 : {dog.service}\n"
                 f"전화번호 뒷자리 : {dog.backPhoneNumber}\n"
                 f"\n"
-                f"■ 아래 준비물 및 주의사항 꼭 확인 부탁드립니다. 💕\n"
+                f"■ 아래 준비물 및 주의사항 꼭 확인 부탁드립니다.\n"
                 f"\n"
-                f"■  『최종 확인』 버튼을 눌러주세요‼️",
+                f"■  『최종 확인』 버튼을 눌러주세요",
             "mobile": f"{dog.phoneNumber}",  # 전송받는 전화번호
             "title": "최종 확인을 눌러주세요",  # 타이틀
             "template": "10010",  # 템플릿 코드
@@ -116,10 +116,6 @@ def post_message_service(dog):
     def req(path, query, method, data={}):
         url = api_host + path
 
-        # print('HTTP Method: %s' % method)
-        # print('Request URL: %s' % url)
-        # print('Headers: %s' % headers)
-        # print('QueryString: %s' % query)
 
         if method == 'GET':
             return requests.get(url, headers=headers)

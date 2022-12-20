@@ -1,14 +1,21 @@
 
-a=("안녕하세요. 딩굴댕굴입니다.\n\n"
-           "[서비스 내역]\n\n"
-           f"■ 애견이름: 22\n"
-           f"■ 이용일자 : 222\n"
-           f"■ 서비스 :  33\n\n"
-           "[참고사항]\n\n"
-           "호텔 이용 후 구토, 설사, 기운 없음 등의 증상이 보일 수 있으나 이는 휴식을 하면 점차 회복되므로 집에서 푹 쉴 수 있도록 도와주세요. 이용해주셔서 감사합니다.\n\n"
-           "[서비스 설문조사]\n\n"
-           "고객님께 더 나은 서비스를 제공하기 위해 설문조사를 진행하고 있습니다. 이번에 경험하신 서비스에 대한 소중한 의견을 남겨주세요.\n\n"
-           "※ 매월 1일마다 설문에 참여하신 분께 추첨을 통해 기프티콘을 드립니다. (카카오톡 채널에 공지)\n\n"
-           "- 전화문의 및 상담 : 0507-1485-0260")
+import time
+existing_end_column = 67
 
-print(str(a))
+while True:
+
+    time.sleep(5)  # 3분마다 실행
+    print("탐색 탐색")
+    # 503 에러 방지
+    try:
+        new_phone_number_length = 66  # 새로 추가된 전화번호를 newPhoneNumberless 저장  B
+
+    except Exception as e:  # 모든 예외의 에러 메시지를 출력할 때는 Exception을 사용
+        print("503 에러발생")
+        new_phone_number_length = existing_end_column
+
+    if existing_end_column == new_phone_number_length:  # 이미 추가된 전화번호 A 와 새로 등록된 번호 B가 다르면 주소 추가 실행
+        continue
+
+    for add_number in reversed(range(0, new_phone_number_length - existing_end_column)):  # 프로그램 실행중 번호 추가 방지
+        print("연락처 등록")
