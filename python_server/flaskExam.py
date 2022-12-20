@@ -1,27 +1,50 @@
-from flask import Flask
-from flask_restful import Resource, Api
-from flask_restful import reqparse
+from flask import Flask, request, render_template
 
 app = Flask(__name__)
-api = Api(app)
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
-class CreateUser(Resource):
-    def post(self):
-        try:
-            parser = reqparse.RequestParser()
-            parser.add_argument('formId', type=str)
-            parser.add_argument('formTitle', type=str)
-            parser.add_argument('results', type=str)
-            args = parser.parse_args()
 
-            _userEmail = args['formId']
-            _userName = args['formTitle']
-            _userPassword = args['results']
-            return {'formId': args['formId'], 'formTitle': args['formTitle'], 'results': args['results']}
-        except Exception as e:
-            return {'error': str(e)}
+# 현재는 GET만 허용되었다.
+# POST까지 허가를 요청한다면 -> 추가 코드 필요...
+# @app.route('/login')  <- GET 만 허가 된것..
+# 1개의 url에서 GET방식과 POST방식을 모두 지원하고 싶다 -> Restful 방식 : url을 최소로 사용..
 
-api.add_resource(CreateUser, '/user')
+@app.route('/Rolling_in_the_dog/notice', methods=['GET', 'POST'])  # GET, POST 모두 허가
+def RITD_Notice():
+    # 분기
+    if request.method == 'GET':  # GET방식으로 들어오면..
+        return render_template('Rolling_in_the_dog/notice.html')
+    else:
+        return 'POST 방식으로 데이터가 잘 전달 됨.'
 
-if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', port=80)
+
+@app.route('/Rolling_in_the_dog/TermsOfService', methods=['GET', 'POST'])  # GET, POST 모두 허가
+def RITD_TermsOfService():
+    # 분기
+    if request.method == 'GET':  # GET방식으로 들어오면..
+        return render_template('Rolling_in_the_dog/TermsOfService.html')
+    else:
+
+        return 'POST 방식으로 데이터가 잘 전달 됨.'
+
+
+@app.route('/my_house_puppy/TermsOfService', methods=['GET'])  # GET, POST 모두 허가
+def myHousePuppyTermsOfserive():
+    # 분기
+    if request.method == 'GET':  # GET방식으로 들어오면..
+        return render_template('my_house_puppy/TermsOfService.html')
+    else:
+        return render_template('my_house_puppy/TermsOfService.html')
+
+@app.route('/my_house_puppy/notice', methods=['GET'])  # GET, POST 모두 허가
+def myHousePuppyNotice():
+    # 분기
+    if request.method == 'GET':  # GET방식으로 들어오면..
+        return render_template('my_house_puppy/notice.html')
+    else:
+        return render_template('my_house_puppy/notice.html')
+
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=80)
