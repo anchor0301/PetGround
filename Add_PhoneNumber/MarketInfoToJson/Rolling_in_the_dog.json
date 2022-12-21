@@ -1,0 +1,45 @@
+{
+"information":{
+  "address": "충남 천안시 서북구 성정두정로 100 열매빌딩 1층 101",
+  "name": "딩굴댕굴",
+  "phone_number": "0507-1485-0260",
+  "spreadsheet_url": "https://docs.google.com/spreadsheets/d/12BZajvryk9dE6cVQ0wwbXaKvK22xLCXFeEWTptfXkfY/edit?usp=sharing",
+  "auth": [
+    {
+      "name": "contacts",
+      "url": ""
+    },
+    {
+      "name": "spread_sheet",
+      "url": ""
+    }
+  ],
+  "notion": {
+    "name": "database",
+    "id": "5ae1d1a61f5f4efe9f9557d62b9adf5e"
+  },
+  "alarm_talk": {
+    "phone_number": "0507-1485-0260",
+    "buttons": [
+      {
+        "name": "kakaoMap",
+        "urls": [
+          {
+            "name": "mobile",
+            "url": "https://m.map.kakao.com/actions/detailMapView?id=1372380561&refService=place"
+          },
+          {
+            "name": "computer",
+            "url": "https://map.kakao.com/?urlX=531668&urlY=926633&urlLevel=2&itemId=1372380561&q=%EB%94%A9%EA%B5%B4%EB%"
+          }
+        ]
+      },
+      {
+        "name": "notice",
+        "url": "http://13.125.165.236/Rolling_in_the_dog/notice"
+      }
+    ]
+  },
+  "notice": ""
+}
+}
