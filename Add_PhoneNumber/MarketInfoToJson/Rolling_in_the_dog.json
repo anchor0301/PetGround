@@ -1,5 +1,4 @@
 {
-"information":{
   "address": "충남 천안시 서북구 성정두정로 100 열매빌딩 1층 101",
   "name": "딩굴댕굴",
   "phone_number": "0507-1485-0260",
@@ -11,7 +10,7 @@
     },
     {
       "name": "spread_sheet",
-      "url": ""
+      "url": ".credentials/ding.json"
     }
   ],
   "notion": {
@@ -29,7 +28,7 @@
             "url": "https://m.map.kakao.com/actions/detailMapView?id=1372380561&refService=place"
           },
           {
-            "name": "computer",
+            "name": "web",
             "url": "https://map.kakao.com/?urlX=531668&urlY=926633&urlLevel=2&itemId=1372380561&q=%EB%94%A9%EA%B5%B4%EB%"
           }
         ]
@@ -41,5 +40,5 @@
     ]
   },
   "notice": ""
-}
+
 }

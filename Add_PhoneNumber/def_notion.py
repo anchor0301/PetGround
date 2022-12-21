@@ -8,6 +8,12 @@ from def_kakao_post import post_message_exit
 from hide_api import notion_headers, patch_data
 from puppyInfo import DogInformation
 
+from test_class import marketName
+
+
+market = marketName()
+
+
 body_data = {
     "page_size": 15,
     "filter": {
@@ -73,7 +79,7 @@ def print_item_info(res, dog):
 def create_page(dog):
     create_url = 'https://api.notion.com/v1/pages'
     new_page_data = {
-        "parent": {"database_id": "5ae1d1a61f5f4efe9f9557d62b9adf5e"},
+        "parent": {"database_id": f"{market.notion_database_id}"},
         "properties": {
             "이름": {
                 "title": [
@@ -135,7 +141,7 @@ def create_page(dog):
 
 # 오늘 퇴실한 강아지 출력 및
 def rest_exit_database():
-    read_url = "https://api.notion.com/v1/databases/5ae1d1a61f5f4efe9f9557d62b9adf5e/query"
+    read_url = f"https://api.notion.com/v1/databases/{market.notion_database_id}/query"
 
     res = requests.request("POST", read_url, headers=notion_headers, data=json.dumps(body_data))
     data = res.json()

@@ -11,13 +11,12 @@ from oauth2client import tools
 from oauth2client.file import Storage
 from oauth2client.service_account import ServiceAccountCredentials
 
+from test_class import marketName
 import hide_api
 
 #-------------market------------
-with open('MarketInfoToJson/Rolling_in_the_dog.json') as f:
-    market = json.load(f)
 
-
+market = marketName()
 try:
     import argparsen
 
@@ -69,12 +68,12 @@ scopee = [
     'https://www.googleapis.com/auth/drive',
 ]
 
-json_file_name = ".credentials/ding.json"
+json_file_name = market.spreadsheet_auth_file
 credentials = ServiceAccountCredentials.from_json_keyfile_name(json_file_name, scopee)
 gc = gspread.authorize(credentials)
 
 # 스프레스시트 문서 가져오기
-doc = gc.open_by_url(hide_api.spreadsheet_url)
+doc = gc.open_by_url(market.spreadsheet_url)
 # 시트 선택하기
 
 
@@ -110,4 +109,4 @@ def create_google_contact(dog):
     }).execute()
 
     print("전화 번호 등록 완료")
-print(market)
+

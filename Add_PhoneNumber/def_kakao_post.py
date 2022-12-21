@@ -2,17 +2,19 @@ import requests
 import json
 from line_notify import LineNotify
 import hide_api
+from test_class import marketName
 ###############################    라인 코드
 
 notify = LineNotify(hide_api.ACCESS_TOKEN)
 error_notify = LineNotify(hide_api.ERROR_TOKEN)
 
+market = marketName()
 
 def post_message_exit(dog, start_day):
     json_object = {
         "service": 2210077160,
         "message":
-           "안녕하세요. 딩굴댕굴입니다.\n\n"
+           f"안녕하세요. {market.name}입니다.\n\n"
            "[서비스 내역]\n\n"
            f"■ 애견이름: {dog.dog_name}\n"
            f"■ 이용일자 : {start_day}\n"
@@ -22,7 +24,7 @@ def post_message_exit(dog, start_day):
            "[서비스 설문조사]\n\n"
            "고객님께 더 나은 서비스를 제공하기 위해 설문조사를 진행하고 있습니다. 이번에 경험하신 서비스에 대한 소중한 의견을 남겨주세요.\n\n"
            "※ 매월 1일마다 설문에 참여하신 분께 추첨을 통해 기프티콘을 드립니다. (카카오톡 채널에 공지)\n\n"
-           "- 전화문의 및 상담 : 0507-1485-0260",
+           f"- 전화문의 및 상담 : {market.phoneNumber}",
         "mobile": f"{dog.phoneNumber}",  # 전송받는 전화번호
         "title": "퇴실 안내",  # 타이틀
         "template": "10011",  # 템플릿 코드
@@ -57,9 +59,9 @@ def post_message_service(dog):
             "template": "10005",  # 템플릿 코드
             "buttons": [
                 {"name": "최종 확인", "type": "MD"},
-                {"name": "사이트 이동",
-                 "url": "https://m.map.kakao.com/actions/detailMapView?id=1372380561&refService=place||https://map.kakao.com/?urlX=531668&urlY=926633&urlLevel=2&itemId=1372380561&q=%EB%94%A9%EA%B5%B4%EB%"},
-                {"name": "사이트 이동", "url": "http://13.125.165.236/login||http://13.125.165.236/login"}]
+                {"name": "가게 위치 보기",
+                 "url": f"{market.map_mobile}||{market.map_web}"},
+                {"name": "준비물 및 주의사항", "url": f"{market.notice_url}||{market.notice_url}"}]
         }
         json_string = json.dumps(json_object)
 
@@ -75,15 +77,15 @@ def post_message_service(dog):
                 f"\n"
                 f"■ 아래 준비물 및 주의사항 꼭 확인 부탁드립니다.\n"
                 f"\n"
-                f"■ 『최종 확인』 버튼을 눌러주세요",
+                f"■  『최종 확인』 버튼을 눌러주세요",
             "mobile": f"{dog.phoneNumber}",  # 전송받는 전화번호
             "title": "최종 확인을 눌러주세요",  # 타이틀
             "template": "10007",  # 템플릿 코드
             "buttons": [
                 {"name": "최종 확인", "type": "MD"},
-                {"name": "사이트 이동",
-                 "url": "https://m.map.kakao.com/actions/detailMapView?id=1372380561&refService=place||https://map.kakao.com/?urlX=531668&urlY=926633&urlLevel=2&itemId=1372380561&q=%EB%94%A9%EA%B5%B4%EB%"},
-                {"name": "사이트 이동", "url": "http://13.125.165.236/login||http://13.125.165.236/login"}]
+                {"name": "가게 위치 보기",
+                  "url": f"{market.map_mobile}||{market.map_web}"},
+                {"name": "준비물 및 주의사항", "url": f"{market.notice_url}||{market.notice_url}"}]
         }
 
         json_string = json.dumps(json_object)
@@ -107,9 +109,9 @@ def post_message_service(dog):
             "template": "10010",  # 템플릿 코드
             "buttons": [
                 {"name": "최종 확인", "type": "MD"},
-                {"name": "사이트 이동",
-                 "url": "https://m.map.kakao.com/actions/detailMapView?id=1372380561&refService=place||https://map.kakao.com/?urlX=531668&urlY=926633&urlLevel=2&itemId=1372380561&q=%EB%94%A9%EA%B5%B4%EB%"},
-                {"name": "사이트 이동", "url": "http://13.125.165.236/login||http://13.125.165.236/login"}]
+                {"name": "가게 위치 보기",
+                 "url": f"{market.map_mobile}||{market.map_web}"},
+                {"name": "준비물 및 주의사항", "url": f"{market.notice_url}||{market.notice_url}"}]
         }
         json_string = json.dumps(json_object)
 
@@ -126,7 +128,6 @@ def post_message_service(dog):
 
     print("카카오톡 응답 코드 : %d \t" % resp.status_code ,end="" )
     print(resp.text)
-    # print("response headers:\n%s" % resp.headers)
 
 
 def create_contact(registered_state, dog):

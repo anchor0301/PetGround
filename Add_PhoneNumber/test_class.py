@@ -1,18 +1,24 @@
+
+import json
+
+
 class Market:
 
-    def __init__(self, name, contacts_auth,spread_sheet_auth,notion_DB,alarm_talk,address,notice):
-        self.address = address
-        self.name = name
-        self.contacts_auth = contacts_auth
-        self.spread_sheet_auth = spread_sheet_auth
-        self.notion_DB = notion_DB
-        self.alarm_talk = alarm_talk
-        self.notice = notice
+    def __init__(self, json_file_name):
+        with open(f'MarketInfoToJson/{json_file_name}.json', encoding="UTF8") as f:
+            self.market = json.load(f)
+        self.name = self.market["name"]
+        self.phoneNumber = self.market["phone_number"]
 
+        self.spreadsheet_url = self.market["spreadsheet_url"]
+        self.spreadsheet_auth_file = self.market["auth"][1]["url"]
 
+        self.map_mobile = self.market["alarm_talk"]["buttons"][0]["urls"][0]["url"]
+        self.map_web = self.market["alarm_talk"]["buttons"][0]["urls"][1]["url"]
 
+        self.notice_url = self.market["alarm_talk"]["buttons"][1]["url"]
+        self.notion_database_id = self.market["notion"]["id"]
 
-딩굴댕굴_인증키 = "주소를 적고"
-딩굴 = Market("딩굴댕굴", "연락처 인증 경로","스프레드 시트 인증 경로","노션 DB주소", "알람톡","집주소","공지사항")
-
+def marketName():
+    return Market("Rolling_in_the_dog")
 
