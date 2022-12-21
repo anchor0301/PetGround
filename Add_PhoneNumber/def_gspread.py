@@ -1,7 +1,8 @@
 from __future__ import print_function
 
+import argparse
 import os
-
+import json
 import gspread
 import httplib2
 from apiclient import discovery
@@ -12,8 +13,13 @@ from oauth2client.service_account import ServiceAccountCredentials
 
 import hide_api
 
+#-------------market------------
+with open('MarketInfoToJson/Rolling_in_the_dog.json') as f:
+    market = json.load(f)
+
+
 try:
-    import argparse
+    import argparsen
 
     flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
 except ImportError:
@@ -104,3 +110,4 @@ def create_google_contact(dog):
     }).execute()
 
     print("전화 번호 등록 완료")
+print(market)
