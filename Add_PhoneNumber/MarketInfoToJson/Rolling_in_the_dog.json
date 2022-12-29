@@ -4,9 +4,9 @@
   "phone_number": "0507-1485-0260",
   "spreadsheet_url": "https://docs.google.com/spreadsheets/d/12BZajvryk9dE6cVQ0wwbXaKvK22xLCXFeEWTptfXkfY/edit?usp=sharing",
   "auth": [
-    {
-      "name": "contacts",
-      "url": ""
+     {
+      "name": "notion",
+      "token": "secret_gNvpkrPcYOkO3RmvNdBB5RXSvwFS2B0ZHLGubmWDBx1"
     },
     {
       "name": "spread_sheet",
@@ -15,10 +15,13 @@
   ],
   "notion": {
     "name": "database",
-    "id": "5ae1d1a61f5f4efe9f9557d62b9adf5e"
+    "id": "5ae1d1a61f5f4efe9f9557d62b9adf5e",
+    "headers" : {"authToken": "DV42BI+mL8AzHHw2mrWcFQ==",
+           "serverName": "ding_api",
+           "paymentType": "P"
+           }
   },
   "alarm_talk": {
-    "phone_number": "0507-1485-0260",
     "buttons": [
       {
         "name": "kakaoMap",
@@ -35,7 +38,7 @@
       },
       {
         "name": "notice",
-        "url": "http://13.125.165.236/Rolling_in_the_dog/notice"
+        "url": "http://13.125.165.236/my_house_puppy/notice"
       }
     ]
   },

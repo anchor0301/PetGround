@@ -40,7 +40,7 @@ def post_message_exit(dog, start_day):
 
 def post_message_service(dog):
     api_host = 'https://talkapi.lgcns.com/'
-    headers = hide_api.headers
+    headers = market.notion_headers
     if "호" in dog.service:
         json_object = {
             "service": 2210077160,
@@ -135,7 +135,7 @@ def create_contact(registered_state, dog):
     # 0 : 아직 미등록
     # 1 : 이미 등록됨
     # 카카오톡 알림톡 api 실행
-    post_message_service(dog)
+    #post_message_service(dog)
 
     if registered_state:
         print(f"중복된 연락처가 있습니다.")
@@ -143,10 +143,10 @@ def create_contact(registered_state, dog):
     else:
         print(f"새로운 연락처를 추가합니다\n")
         send = f"\n새로운 연락처 \n"
-    notify.send(send +
-                f"\n{dog.to_string()}\n"
-                f"\n이름 : {dog.host_name} "
-                f"\n연락처 : {dog.phoneNumber}"
-                f"\n시작일 : {str(dog.start_day_time)[5:-3]}"
-                f"\n종료일 : {str(dog.end_day_time)[5:-3]}")
+    # notify.send(send +
+    #             f"\n{dog.to_string()}\n"
+    #             f"\n이름 : {dog.host_name} "
+    #             f"\n연락처 : {dog.phoneNumber}"
+    #             f"\n시작일 : {str(dog.start_day_time)[5:-3]}"
+    #             f"\n종료일 : {str(dog.end_day_time)[5:-3]}")
 

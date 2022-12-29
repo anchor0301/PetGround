@@ -1,12 +1,13 @@
 {
-  "address": "충남 천안시 서북구 성정두정로 100 열매빌딩 1층 101",
-  "name": "딩굴댕굴",
-  "phone_number": "0507-1485-0260",
-  "spreadsheet_url": "https://docs.google.com/spreadsheets/d/12BZajvryk9dE6cVQ0wwbXaKvK22xLCXFeEWTptfXkfY/edit?usp=sharing",
+  "address": "경기 수원시 권선구 정조로 461-1 2층 202호",
+  "name": "마이 하우스 퍼피",
+  "phone_number": "수정",
+  "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1NIUszQzMRKD-10QrBtICVDQ1g8GGsi1o4pyKF2D6B6g/edit?usp=sharing",
+
   "auth": [
     {
-      "name": "contacts",
-      "url": ""
+      "name": "notion",
+      "token": "secret_QTgcccVd7sLSPeSa098i6dznabgTjcPASDGiWHScFbp"
     },
     {
       "name": "spread_sheet",
@@ -15,27 +16,31 @@
   ],
   "notion": {
     "name": "database",
-    "id": "5ae1d1a61f5f4efe9f9557d62b9adf5e"
-  },
+    "id": "950ba044a1d34853a837ab10c26f7b1c",
+    "headers" : {"authToken": "950ba044a1d34853a837ab10c26f7b1c 수정",
+           "serverName": "mypuppyhouse",
+           "paymentType": "P"
+           }
+
+},
   "alarm_talk": {
-    "phone_number": "0507-1485-0260",
     "buttons": [
       {
         "name": "kakaoMap",
         "urls": [
           {
             "name": "mobile",
-            "url": "https://m.map.kakao.com/actions/detailMapView?id=1372380561&refService=place"
+            "url": "https://m.map.kakao.com/actions/detailMapView?id=1372380561&refService=place 수정"
           },
           {
             "name": "web",
-            "url": "https://map.kakao.com/?urlX=531668&urlY=926633&urlLevel=2&itemId=1372380561&q=%EB%94%A9%EA%B5%B4%EB%"
+            "url": "https://map.kakao.com/?urlX=531668&urlY=926633&urlLevel=2&itemId=1372380561&q=%EB%94%A9%EA%B5%B4%EB% 수정"
           }
         ]
       },
       {
         "name": "notice",
-        "url": "http://13.125.165.236/Rolling_in_the_dog/notice"
+        "url": "http://13.125.165.236/my_house_puppy/notice"
       }
     ]
   },

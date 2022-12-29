@@ -178,9 +178,10 @@ def patch_exit_database(notion_page_id):
 
     requests.request("PATCH", read_url, headers=notion_headers, data=json.dumps(patch_data))
 
-#dog = DogInformation(17)
+#dog = DogInformation(2)
+#print(dog.to_string())
 #create_page(dog)  # 노션 추가 및 응답 결과 출력
-# read_database(notion_databaseId,notion_headers) #테이블 읽기
+#read_database(notion_databaseId,notion_headers) #테이블 읽기
 #rest_exit_database()  # 퇴실한 녀석 찾아 메시지 전송
 
 

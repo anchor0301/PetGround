@@ -11,6 +11,7 @@ from oauth2client import tools
 from oauth2client.file import Storage
 from oauth2client.service_account import ServiceAccountCredentials
 
+
 from test_class import marketName
 import hide_api
 
@@ -110,3 +111,5 @@ def create_google_contact(dog):
 
     print("전화 번호 등록 완료")
 
+
+#print(worksheet.row_values(2))

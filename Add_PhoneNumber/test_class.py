@@ -1,4 +1,3 @@
-
 import json
 
 
@@ -16,9 +15,12 @@ class Market:
         self.map_mobile = self.market["alarm_talk"]["buttons"][0]["urls"][0]["url"]
         self.map_web = self.market["alarm_talk"]["buttons"][0]["urls"][1]["url"]
 
+        self.notion_token = self.market["auth"][0]["token"]
+        self.notion_headers = self.market["notion"]["headers"]
         self.notice_url = self.market["alarm_talk"]["buttons"][1]["url"]
         self.notion_database_id = self.market["notion"]["id"]
 
-def marketName():
-    return Market("Rolling_in_the_dog")
 
+def marketName():
+    return Market("my_house_puppy")
+    # return Market("Rolling_in_the_dog")
