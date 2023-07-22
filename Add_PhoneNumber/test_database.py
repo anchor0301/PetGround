@@ -3,7 +3,7 @@ from datetime import datetime
 from dateutil.parser import parse
 import requests
 import json
-from hide_api import notion_headers, patch_exit_data
+from hide_api import ding_notion_headers, patch_exit_data
 existing_end_column = 1
 new_phone_number_length = 1
 
@@ -37,7 +37,7 @@ body_data = {
 def rest_exit_database():
     read_url = "https://api.notion.com/v1/databases/5ae1d1a61f5f4efe9f9557d62b9adf5e/query"
 
-    res = requests.request("POST", read_url, headers=notion_headers, data=json.dumps(body_data))
+    res = requests.request("POST", read_url, headers=ding_notion_headers, data=json.dumps(body_data))
     data = res.json()
 
     results = data.get("results")

@@ -1,10 +1,11 @@
 from __future__ import print_function
+
 import os
 
 import gspread
 import httplib2
 
-# pip install --upgrade google-api-python-client
+#pip install --upgrade google-api-python-client
 from googleapiclient import discovery
 
 from oauth2client import client
@@ -35,9 +36,7 @@ def get_credentials():
     Returns:
         Credentials, the obtained credential.
     """
-    home_dir = os.path.expanduser('./')
-
-    #credential_dir = os.path.join(home_dir, '~/../Ubuntu1/ding_homepage/ding_RPA_python/Add_PhoneNumber/credentials')
+    home_dir = os.path.expanduser('../')
     credential_dir = os.path.join(home_dir, '.credentials')
     if not os.path.exists(credential_dir):
         os.makedirs(credential_dir)
@@ -67,10 +66,8 @@ scopee = [
     'https://www.googleapis.com/auth/drive',
 ]
 
-puppyhouse_json_file_name = ".credentials/mypuppyhouse_googlespread_api.json"
-ding_json_file_name = ".credentials/ding.json"
-
-credentials = ServiceAccountCredentials.from_json_keyfile_name(ding_json_file_name, scopee)
+json_file_name = ".credentials/ding.json"
+credentials = ServiceAccountCredentials.from_json_keyfile_name(json_file_name, scopee)
 gc = gspread.authorize(credentials)
 
 # 스프레스시트 문서 가져오기
@@ -84,29 +81,4 @@ worksheet = doc.worksheet('시트1')
 def get_item_index(add_number_row):
     return len(worksheet.get("i1:i" + str(add_number_row)))
 
-
-def create_google_contact(dog):
-    """
-    구글 주소록에 연락처를 추가하는 api
-    :param dog: 스프레드 시트의 강아지 데이터
-    :return:
-    """
-
-    print(dog.phoneNumber, "번 행의 연락처를 등록합니다.")
-
-    service = discovery.build('people', 'v1', http=http,
-                              discoveryServiceUrl='https://people.googleapis.com/$discovery/rest')
-    service.people().createContact(body={
-        "names": [
-            {
-                'givenName': f"{dog.to_string()}"
-            }
-        ],
-        "phoneNumbers": [
-            {
-                'value': f"{dog.phoneNumber}"
-            }
-        ]
-    }).execute()
-
-    print("전화 번호 등록 완료")
+get_item_index(17)

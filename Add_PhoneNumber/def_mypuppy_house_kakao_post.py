@@ -11,7 +11,6 @@ API_URI = "https://notify-api.line.me/api/notify"
 
 
 class LineNotify:
-
     def __init__(self, access_token, name=None):
         """Example:
 
@@ -76,82 +75,18 @@ class LineNotify:
 
 ###############################    라인 코드
 
-notify = LineNotify(hide_api.ACCESS_TOKEN)
+notify = LineNotify(hide_api.PUPPYHOUSE_ACCESS_TOKEN)
 error_notify = LineNotify(hide_api.ERROR_TOKEN)
 
-
-def post_message_register_check(dog, start_day):
-    """
-        입실전 입실 안내 메시지를 보낸다.
-
-        :param dog: puppyInfo 클래스의 객체
-        :param start_day: 예약일시
-        :return:
-        """
-    json_object = {
-        "service": 2210077160,
-        "message":
-            f"{dog.dog_name} 견주님, 오늘 {dog.register_time()} 딩굴댕굴 예약 잊지 않으셨죠?\n"
-            "좋은 하루 보내세요!\n\n"
-            "[예약정보]\n"
-            f"- 예약일시 : {start_day}\n"
-            f"- 예약매장 : 딩굴댕굴\n"
-            f"- 예약서비스 : {dog.service}\n\n"
-            f"[매장 정보]\n"
-            f"- 천안시 서북구 성정두정로 100\n\n"
-            f"[주의사항]\n"
-            f"- 예약 변경/취소 발생시 전화 및 메시지 회신 부탁드립니다.\n"
-            f"- 010-7498-0144"
-           ,
-        "mobile": f"{dog.phoneNumber}",  # 전송받는 전화번호
-        "title": f"{dog.dog_name}",  # 타이틀
-        "template": "10027",  # 템플릿 코드
-        "buttons": [
-            {"name": "딩굴댕굴 네이버", "url": "https://naver.me/G5I0XCzI||https://naver.me/G5I0XCzI"},
-            {"name": "주의사항",
-             "url": "http://wp2102.synology.me:1004/Rolling_in_the_dog/notice||http://wp2102.synology.me:1004/Rolling_in_the_dog/notice"}]
-    }
-    json_string = json.dumps(json_object)
-    resp = requests.post('https://talkapi.lgcns.com/request/kakao.json', headers=hide_api.headers, data=json_string)
-    print("카카오톡 응답 코드 : %d" % resp.status_code)
-    print("response body: %s" % resp.text)
-    print("---------------------------")
-
-
-def post_message_exit(dog, start_day):
-    json_object = {
-        "service": 2210077160,
-        "message":
-            "안녕하세요. 딩굴댕굴입니다.\n\n"
-            "[서비스 내역]\n\n"
-            f"■ 애견이름: {dog.dog_name}\n"
-            f"■ 이용일자 : {start_day}\n"
-            f"■ 서비스 :  {dog.service}\n\n"
-            "[참고사항]\n\n"
-            "호텔 이용 후 구토, 설사, 기운 없음 등의 증상이 보일 수 있으나 이는 휴식을 하면 점차 회복되므로 집에서 푹 쉴 수 있도록 도와주세요. 이용해주셔서 감사합니다.\n\n"
-            "[서비스 설문조사]\n\n"
-            "고객님께 더 나은 서비스를 제공하기 위해 설문조사를 진행하고 있습니다. 이번에 경험하신 서비스에 대한 소중한 의견을 남겨주세요.\n\n"
-            "※ 매월 1일마다 설문에 참여하신 분께 추첨을 통해 기프티콘을 드립니다. (카카오톡 채널에 공지)\n\n"
-            "- 전화문의 및 상담 : 0507-1485-0260",
-        "mobile": f"{dog.phoneNumber}",  # 전송받는 전화번호
-        "title": "퇴실 안내",  # 타이틀
-        "template": "10011",  # 템플릿 코드
-        "buttons": [
-            {"name": "서비스 설문조사 참여", "url": "https://forms.gle/sX4iNu3NaDS4beQR6||https://forms.gle/sX4iNu3NaDS4beQR6"}]
-    }
-    json_string = json.dumps(json_object)
-    resp = requests.post('https://talkapi.lgcns.com/request/kakao.json', headers=hide_api.headers, data=json_string)
-    print("카카오톡 응답 코드 : %d" % resp.status_code)
-    print("response body: %s" % resp.text)
-    print("---------------------------")
-
-
 def post_message_service(dog):
+    """
+    예약시 보내는 메시지
+    """
     api_host = 'https://talkapi.lgcns.com/'
     headers = hide_api.headers
     if "호" in dog.service:
         json_object = {
-            "service": 2210077160,
+            "service": 2310085523,
             "message":
                 f"{dog.reservationDate()}\n"  # 호텔 예약
                 f"이름: {dog.dog_name}\n"
@@ -163,19 +98,19 @@ def post_message_service(dog):
                 f"\n"
                 f"■  『최종 확인』 버튼을 눌러주세요",
             "mobile": f"{dog.phoneNumber}",  # 전송받는 전화번호
-            "title": "최종 확인을 눌러주세요",  # 타이틀
-            "template": "10005",  # 템플릿 코드
+            "title": "예약 완료",  # 타이틀
+            "template": "10030",  # 템플릿 코드
             "buttons": [
                 {"name": "최종 확인", "type": "MD"},
-                {"name": "사이트 이동",
-                 "url": "https://m.map.kakao.com/actions/detailMapView?id=1372380561&refService=place||https://map.kakao.com/?urlX=531668&urlY=926633&urlLevel=2&itemId=1372380561&q=%EB%94%A9%EA%B5%B4%EB%"},
-                {"name": "사이트 이동", "url": "http://13.125.165.236/login||http://13.125.165.236/login"}]
+                {"name": "가게 위치 보기",
+                 "url": "http://kko.to/e7crZhDAs9||http://kko.to/e7crZhDAs9"},
+                {"name": "준비물 및 주의사항", "url": "http://wp2102.synology.me:1004/my_house_puppy/notice||http://wp2102.synology.me:1004/my_house_puppy/notice"}]
         }
         json_string = json.dumps(json_object)
 
     elif "놀" in dog.service:
         json_object = {
-            "service": 2210077160,
+            "service": 2310085523,
             "message":
                 f"{dog.overNight()}"  # 놀이방 예약
                 f"이름: {dog.dog_name}\n"
@@ -188,12 +123,12 @@ def post_message_service(dog):
                 f"■ 『최종 확인』 버튼을 눌러주세요",
             "mobile": f"{dog.phoneNumber}",  # 전송받는 전화번호
             "title": "최종 확인을 눌러주세요",  # 타이틀
-            "template": "10007",  # 템플릿 코드
+            "template": "10028",  # 템플릿 코드
             "buttons": [
                 {"name": "최종 확인", "type": "MD"},
-                {"name": "사이트 이동",
-                 "url": "https://m.map.kakao.com/actions/detailMapView?id=1372380561&refService=place||https://map.kakao.com/?urlX=531668&urlY=926633&urlLevel=2&itemId=1372380561&q=%EB%94%A9%EA%B5%B4%EB%"},
-                {"name": "사이트 이동", "url": "http://13.125.165.236/login||http://13.125.165.236/login"}]
+                {"name": "가게 위치 보기",
+                 "url": "http://kko.to/e7crZhDAs9||http://kko.to/e7crZhDAs9"},
+                {"name": "준비물 및 주의사항", "url": "http://wp2102.synology.me:1004/my_house_puppy/notice||http://wp2102.synology.me:1004/my_house_puppy/notice"}]
         }
 
         json_string = json.dumps(json_object)
@@ -201,7 +136,7 @@ def post_message_service(dog):
 
     elif "유치원" in dog.service:
         json_object = {
-            "service": 2210077160,
+            "service": 2310085523,
             "message":
                 f"서비스 횟수 : {dog.useTime} 회\n\n"  # 유치원 예약 
                 f"이름: {dog.dog_name}\n"
@@ -214,16 +149,17 @@ def post_message_service(dog):
                 f"■  『최종 확인』 버튼을 눌러주세요",
             "mobile": f"{dog.phoneNumber}",  # 전송받는 전화번호
             "title": "최종 확인을 눌러주세요",  # 타이틀
-            "template": "10010",  # 템플릿 코드
+            "template": "10029",  # 템플릿 코드
             "buttons": [
                 {"name": "최종 확인", "type": "MD"},
-                {"name": "사이트 이동",
-                 "url": "https://m.map.kakao.com/actions/detailMapView?id=1372380561&refService=place||https://map.kakao.com/?urlX=531668&urlY=926633&urlLevel=2&itemId=1372380561&q=%EB%94%A9%EA%B5%B4%EB%"},
-                {"name": "사이트 이동", "url": "http://13.125.165.236/login||http://13.125.165.236/login"}]
+                {"name": "가게 위치 보기",
+                 "url": "http://kko.to/e7crZhDAs9||http://kko.to/e7crZhDAs9"},
+                {"name": "준비물 및 주의사항", "url": "http://wp2102.synology.me:1004/my_house_puppy/notice||http://wp2102.synology.me:1004/my_house_puppy/notice"}]
         }
         json_string = json.dumps(json_object)
 
-    def req(path, query, method, data={}):
+
+    def req(path, method):
         url = api_host + path
 
         # print('HTTP Method: %s' % method)
@@ -234,6 +170,7 @@ def post_message_service(dog):
         if method == 'GET':
             return requests.get(url, headers=headers)
         else:
+            print(json_object)
             return requests.post(url, headers=headers, data=json_string)
 
     resp = req('/request/kakao.json', '', 'post')
@@ -263,6 +200,8 @@ def create_contact(registered_state, dog):
                 f"\n시작일 : {str(dog.start_day_time)[5:-3]}"
                 f"\n종료일 : {str(dog.end_day_time)[5:-3]}")
 
-#dog = service(17)
-#post_message_service(dog)
+# dog = service(84)
+# post_message_service(dog)
+
+
 # post_message_service(dog)

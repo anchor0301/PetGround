@@ -34,7 +34,7 @@ credentials = ServiceAccountCredentials.from_json_keyfile_name(json_file_name, s
 gc = gspread.authorize(credentials)
 
 # 스프레스시트 문서 가져오기
-doc = gc.open_by_url(hide_api.spreadsheet_url)
+doc = gc.open_by_url(hide_api.ding_spreadsheet_url)
 # 시트 선택하기
 worksheet = doc.worksheet('시트1')
 

@@ -68,13 +68,13 @@ scopee = [
 ]
 
 puppyhouse_json_file_name = ".credentials/mypuppyhouse_googlespread_api.json"
-ding_json_file_name = ".credentials/ding.json"
 
-credentials = ServiceAccountCredentials.from_json_keyfile_name(ding_json_file_name, scopee)
+
+credentials = ServiceAccountCredentials.from_json_keyfile_name(puppyhouse_json_file_name, scopee)
 gc = gspread.authorize(credentials)
 
 # 스프레스시트 문서 가져오기
-doc = gc.open_by_url(hide_api.ding_spreadsheet_url)
+doc = gc.open_by_url(hide_api.puppyhouse_spreadsheet_url)
 # 시트 선택하기
 
 

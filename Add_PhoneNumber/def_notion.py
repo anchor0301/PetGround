@@ -1,13 +1,19 @@
 import datetime as datetime
-from datetime import datetime,timedelta
+from datetime import datetime, timedelta
 
 from dateutil.parser import parse
 import json
 import requests
 
 from def_kakao_post import post_message_exit, post_message_register_check
-from hide_api import notion_headers, patch_exit_data,patch_register_check_data
+from hide_api import ding_notion_headers, patch_exit_data, patch_register_check_data,puppyhouse_notion_headers
 from puppyInfo import service
+
+# 5ae1d1a61f5f4efe9f9557d62b9adf5e ding
+# 0cd1f5a289b84f16a0513691d372b4b8 my
+# 0 = ding , 1 = mhp
+database_id = ["5ae1d1a61f5f4efe9f9557d62b9adf5e","0cd1f5a289b84f16a0513691d372b4b8"]
+db_id = database_id[0]
 
 book_body_data = {
     "page_size": 10,
@@ -40,7 +46,7 @@ book_body_data = {
     ]
 }
 
-#퇴실한 사람에게 메시지 전송
+# 퇴실한 사람에게 메시지 전송
 body_data = {
     "page_size": 15,
     "filter": {
@@ -68,7 +74,6 @@ body_data = {
 }
 
 
-
 # 데이터베이스 읽기
 def read_database(notion_database_id):
     """
@@ -77,7 +82,7 @@ def read_database(notion_database_id):
 
     read_url = f"https://api.notion.com/v1/databases/{notion_database_id}/query"
 
-    res = requests.request("POST", read_url, headers=notion_headers)
+    res = requests.request("POST", read_url, headers=ding_notion_headers)
     data = res.json()
     print(res.status_code)
     print(data)
@@ -103,11 +108,12 @@ def print_item_info(res, dog):
     print("---------------------------------------\n\n")
 
 
+
 # 애견 페이지를 만든다
 def create_page(dog):
     create_url = 'https://api.notion.com/v1/pages'
     new_page_data = {
-        "parent": {"database_id": "5ae1d1a61f5f4efe9f9557d62b9adf5e"},
+        "parent": {"database_id": f"{db_id}"},
         "properties": {
             "이름": {
                 "title": [
@@ -160,7 +166,7 @@ def create_page(dog):
 
     data = json.dumps(new_page_data)
 
-    res = requests.request("POST", create_url, headers=notion_headers, data=data)
+    res = requests.request("POST", create_url, headers=ding_notion_headers, data=data)
 
     print("노션 응답 코드 :  %s \n" % res.status_code)
     print(res.json())
@@ -169,9 +175,9 @@ def create_page(dog):
 
 # 오늘 퇴실한 강아지 출력 및
 def rest_exit_database():
-    read_url = "https://api.notion.com/v1/databases/5ae1d1a61f5f4efe9f9557d62b9adf5e/query"
+    read_url = f"https://api.notion.com/v1/databases/{db_id}/query"
 
-    res = requests.request("POST", read_url, headers=notion_headers, data=json.dumps(body_data))
+    res = requests.request("POST", read_url, headers=ding_notion_headers, data=json.dumps(body_data))
     data = res.json()
 
     results = data.get("results")
@@ -200,10 +206,14 @@ def rest_exit_database():
     return True
 
 
+# 예약한 사람에게 2시간전 메시지 보내기
 def book_check_database():
-    # 예약한 사람에게 2시간전 메시지 보내기
 
-    now_times = str((datetime.now() + timedelta(hours=11)).strftime('%Y-%m-%dT%H:01+09:00'))
+    now_times = str((datetime.now() + timedelta(hours=3)).strftime('%Y-%m-%dT%H:01+00:00'))
+    seoul_time = str((datetime.now()).strftime('%Y-%m-%dT%H:01+00:00'))
+    print(seoul_time[11:-6],"부터 " ,now_times[11:-6], "까지 입실 예정 고객에게 메시지 전송.")
+
+
     book_check_data = {
         "page_size": 15,
         "filter": {
@@ -239,14 +249,12 @@ def book_check_database():
         }
     }
 
+    read_url = f"https://api.notion.com/v1/databases/{db_id}/query"
 
-    read_url = "https://api.notion.com/v1/databases/5ae1d1a61f5f4efe9f9557d62b9adf5e/query"
-
-    res = requests.request("POST", read_url, headers=notion_headers, data=json.dumps(book_check_data))
+    res = requests.request("POST", read_url, headers=ding_notion_headers, data=json.dumps(book_check_data))
     data = res.json()
 
     results = data.get("results")
-    print(now_times[:-6],"때 입실 예정 강아지를 찾습니다.")
     # 없으면 아무것도 안함
     if "[]" == str(results):
         return False
@@ -265,6 +273,7 @@ def book_check_database():
         page_code = data.get("results")[i].get("id")
 
         print("애견 이름 :  %s \n애견 페이지 : %s\n애견 순번 : %s" % (result, page_code, dog_num))
+        print("______")
         dog = service(dog_num)
         post_message_register_check(dog, start_day)
         patch_register_check_database(page_code)
@@ -273,9 +282,9 @@ def book_check_database():
 
 
 def listBookings():
-    read_url = "https://api.notion.com/v1/databases/5ae1d1a61f5f4efe9f9557d62b9adf5e/query"
+    read_url = f"https://api.notion.com/v1/databases/{db_id}/query"
 
-    res = requests.request("POST", read_url, headers=notion_headers, data=json.dumps(book_body_data))
+    res = requests.request("POST", read_url, headers=ding_notion_headers, data=json.dumps(book_body_data))
     data = res.json()
 
     results = data.get("results")
@@ -306,16 +315,16 @@ def listBookings():
 def patch_exit_database(notion_page_id):
     read_url = f"https://api.notion.com/v1/pages/{notion_page_id}"
 
-    requests.request("PATCH", read_url, headers=notion_headers, data=json.dumps(patch_exit_data))
+    requests.request("PATCH", read_url, headers=ding_notion_headers, data=json.dumps(patch_exit_data))
+
 
 def patch_register_check_database(notion_page_id):
     read_url = f"https://api.notion.com/v1/pages/{notion_page_id}"
 
-    requests.request("PATCH", read_url, headers=notion_headers, data=json.dumps(patch_register_check_data))
+    requests.request("PATCH", read_url, headers=ding_notion_headers, data=json.dumps(patch_register_check_data))
 
-
-#dog = DogInformation(1488)
-# book_check_database()
+# dog = service(17)
+# book_check_database()ƒ
 # create_page(dog)  # 노션 추가 및 응답 결과 출력
 # read_database(notion_databaseId,notion_headers) #테이블 읽기
 # rest_exit_database()  # 퇴실한 녀석 찾아 메시지 전송
