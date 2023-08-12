@@ -94,8 +94,8 @@ def print_item_info(res, dog):
     res = res["properties"]
     print("\n---------------- 응답 결과 ----------------")
     print("타임스탬프\t:  ", datetime.now())
-    print("엑셀 행 \t\t:\t" + str(res["순번"]['number']))
-    print("전화번호 \t\t: \t" + dog.phoneNumber)
+    print("엑셀 행 \t:\t" + str(res["순번"]['number']))
+    print("전화번호 \t: \t" + dog.phoneNumber)
     print("강아지 이름 \t: \t" + res["이름"]["title"][0]['text']['content'])
     print("강아지 정보 \t: \t" + res["성별"]["select"]["name"] + "\t" + res['견종']["select"]["name"], end="\t")
     print(str(res["몸무게"]['number']) + "kg")

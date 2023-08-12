@@ -119,7 +119,7 @@ def create_page(dog):
                 "title": [
                     {
                         "text": {
-                            "content": f"{dog.dog_name}"
+                            "content": f"{dog.dog_name}/{dog.backPhoneNumber}"
                         }
                     }
                 ]
@@ -214,6 +214,7 @@ def book_check_database():
     print(seoul_time[11:-6],"부터 " ,now_times[11:-6], "까지 입실 예정 고객에게 메시지 전송.")
 
 
+
     book_check_data = {
         "page_size": 15,
         "filter": {
@@ -275,9 +276,10 @@ def book_check_database():
         print("애견 이름 :  %s \n애견 페이지 : %s\n애견 순번 : %s" % (result, page_code, dog_num))
         print("______")
         dog = service(dog_num)
-        post_message_register_check(dog, start_day)
-        patch_register_check_database(page_code)
+        #post_message_register_check(dog, start_day)
+        #patch_register_check_database(page_code)
 
+    print("입실 예정 고객 검색 완료\n_________________")
     return True
 
 
@@ -323,9 +325,9 @@ def patch_register_check_database(notion_page_id):
 
     requests.request("PATCH", read_url, headers=ding_notion_headers, data=json.dumps(patch_register_check_data))
 
-# dog = service(17)
-# book_check_database()ƒ
-# create_page(dog)  # 노션 추가 및 응답 결과 출력
+#dog = service(1869)
+book_check_database()
+#create_page(dog)  # 노션 추가 및 응답 결과 출력
 # read_database(notion_databaseId,notion_headers) #테이블 읽기
 # rest_exit_database()  # 퇴실한 녀석 찾아 메시지 전송
 

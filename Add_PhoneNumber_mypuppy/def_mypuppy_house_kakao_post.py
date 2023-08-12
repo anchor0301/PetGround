@@ -200,8 +200,8 @@ def create_contact(registered_state, dog):
                 f"\n시작일 : {str(dog.start_day_time)[5:-3]}"
                 f"\n종료일 : {str(dog.end_day_time)[5:-3]}")
 
-dog = service(85)
+#dog = service(85)
 # post_message_service(dog)
 
 
-post_message_service(dog)
+#post_message_service(dog)
