@@ -1,6 +1,6 @@
 /mix_3/chromedriver.bat
 /mix_3/puppyhome-8c729ebcba62.json
-
+/
 .DS_Store
 
 
@@ -277,4 +277,4 @@ Add_PhoneNumber/.credentials/aaaa.json
 >>>>>>> for_test
 *.json
 hide_api.py
-
+random_number.py

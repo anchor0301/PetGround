@@ -41,7 +41,7 @@ class Hotel:
         self.sex = dog_information[9]  # 강아지 성별
         self.weight = dog_information[10]  # 강아지 몸무게
         self.breed = re.sub(r'\([^)]*\)', '', dog_information[11])  # 견종
-        self.Others = dog_information[15]  # 기타 문의사항
+        self.Others = dog_information[17]  # 기타 문의사항
 
     # 메소드 생성시
     def info(self):

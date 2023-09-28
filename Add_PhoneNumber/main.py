@@ -11,16 +11,17 @@
 from def_gspread import worksheet, create_google_contact
 from def_kakao_post import error_notify, create_contact ,notify
 from def_notion import create_page
+
 from puppyInfo import service
 import time
-
+import log
 
 
 # polling System
 
 def main():
     notify.send("프로그램 시작")
-    print("2023/07/17 - 마이퍼피하수으")
+    print("2023/09/28 - 로그 남기기 추가")
 
     existing_end_column = len(worksheet.col_values(6))  # 이미 추가된 전화번호들 중 마지막 번호의 열 번호를 저장한다.   A
 
@@ -31,7 +32,7 @@ def main():
 
     try:
         while True:
-            time.sleep(180)  # 3분마다 실행
+            time.sleep(5)  # 3분마다 실행
 
             # 503 에러 방지
             try:
@@ -82,6 +83,7 @@ def main():
     except Exception as e:
         print("실시간 감지중 프로그램 정지")
         print(e)
+
         notify.send("error code : 1\n"
                           "실시간 감지중 프로그램 정지\n")
 

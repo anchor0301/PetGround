@@ -119,7 +119,7 @@ def create_page(dog):
                 "title": [
                     {
                         "text": {
-                            "content": f"{dog.dog_name}/{dog.backPhoneNumber}"
+                            "content": f"{dog.dog_name}/{dog.backPhoneNumber}/{dog.weight}"
                         }
                     }
                 ]
@@ -184,6 +184,7 @@ def rest_exit_database():
     # 없으면 아무것도 안함
     if "[]" == str(results):
         return False
+    print("_________________\n 퇴실한 고객에게 메시지 전송.")
 
     for i in range(len(results)):
         # 애견 이름
@@ -203,6 +204,7 @@ def rest_exit_database():
         post_message_exit(dog, start_day)
         patch_exit_database(page_code)
 
+    print("퇴실 고객 전송 완료\n_________________")
     return True
 
 
@@ -211,7 +213,6 @@ def book_check_database():
 
     now_times = str((datetime.now() + timedelta(hours=3)).strftime('%Y-%m-%dT%H:01+00:00'))
     seoul_time = str((datetime.now()).strftime('%Y-%m-%dT%H:01+00:00'))
-    print(seoul_time[11:-6],"부터 " ,now_times[11:-6], "까지 입실 예정 고객에게 메시지 전송.")
 
 
 
@@ -260,6 +261,8 @@ def book_check_database():
     if "[]" == str(results):
         return False
 
+    print("_________________\n", seoul_time[11:-6], "부터 ", now_times[11:-6], "까지 입실 예정 고객에게 메시지 전송.")
+
     for i in range(len(results)):
         # 애견 이름
         result = data.get("results")[i].get("properties").get("이름").get("title")[0].get("text").get("content")
@@ -274,12 +277,11 @@ def book_check_database():
         page_code = data.get("results")[i].get("id")
 
         print("애견 이름 :  %s \n애견 페이지 : %s\n애견 순번 : %s" % (result, page_code, dog_num))
-        print("______")
         dog = service(dog_num)
-        #post_message_register_check(dog, start_day)
-        #patch_register_check_database(page_code)
+        post_message_register_check(dog, start_day)
+        patch_register_check_database(page_code)
 
-    print("입실 예정 고객 검색 완료\n_________________")
+    print("입실 예정 고객 전송 완료\n_________________")
     return True
 
 
@@ -325,8 +327,8 @@ def patch_register_check_database(notion_page_id):
 
     requests.request("PATCH", read_url, headers=ding_notion_headers, data=json.dumps(patch_register_check_data))
 
-#dog = service(1869)
-book_check_database()
+#dog = service(2156)
+#book_check_database()
 #create_page(dog)  # 노션 추가 및 응답 결과 출력
 # read_database(notion_databaseId,notion_headers) #테이블 읽기
 # rest_exit_database()  # 퇴실한 녀석 찾아 메시지 전송

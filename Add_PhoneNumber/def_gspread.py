@@ -92,7 +92,7 @@ def create_google_contact(dog):
     :return:
     """
 
-    print(dog.phoneNumber, "번 행의 연락처를 등록합니다.")
+    print(dog.row_number, "번 행의 연락처를 등록합니다.")
 
     service = discovery.build('people', 'v1', http=http,
                               discoveryServiceUrl='https://people.googleapis.com/$discovery/rest')
